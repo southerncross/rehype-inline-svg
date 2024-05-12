@@ -1,4 +1,4 @@
-import * as SVGO from "svgo";
+import { type Config as SvgoConfig } from "svgo";
 
 /**
  * Options for the Inline SVG plugin.
@@ -34,7 +34,7 @@ export interface Options {
    *
    * Defaults to `true`.
    */
-  optimize: boolean | SVGO.Options;
+  optimize: boolean | SvgoConfig;
 
   /**
    * A callback function that receives cache efficiency information.

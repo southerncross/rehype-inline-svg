@@ -1,17 +1,19 @@
 import * as path from "path";
-import { Processor, Transformer } from "unified";
-import { Node, Parent } from "unist";
+import type { Transformer } from "unified";
+import type { Node, Parent } from "unist";
 import { VFile } from "vfile";
-import { SvgCache } from "./cache";
-import { GroupedImageNodes, ImageNode, isImageNode } from "./image-node";
-import { imgToSVG } from "./img-to-svg";
-import { applyDefaults, Options } from "./options";
+import { SvgCache } from "./cache.js";
+import { isImageNode } from "./image-node.js";
+import type { GroupedImageNodes, ImageNode } from "./image-node.js";
+import { imgToSVG } from "./img-to-svg.js";
+import { applyDefaults } from "./options.js";
+import type { Options } from "./options.js";
 
 /**
  * This is a Rehype plugin that finds SVG `<img>` elements and replaces them with inlined `<svg>` elements.
  * It also minimizes the SVG to avoid adding too much size to the page.
  */
-export function inlineSVG(this: Processor, config?: Partial<Options>): Transformer {
+export function inlineSVG(config?: Partial<Options>): Transformer {
   let options = applyDefaults(config);
   let svgCache = new SvgCache();
   let hits = 0, misses = 0;
@@ -49,14 +51,14 @@ export function inlineSVG(this: Processor, config?: Partial<Options>): Transform
 /**
  * Recursively crawls the HAST tree and finds all SVG `<img>` elements
  */
-function findSvgNodes(node: Node): ImageNode[] {
+function findSvgNodes(node: Node | Parent): ImageNode[] {
   let imgNodes: ImageNode[] = [];
 
   if (isImageNode(node) && node.properties.src.endsWith(".svg")) {
     imgNodes.push(node);
   }
 
-  if (node.children) {
+  if ((node as Parent).children) {
     let parent = node as Parent;
     for (let child of parent.children) {
       imgNodes.push(...findSvgNodes(child));

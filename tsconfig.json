@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "module": "Node16",
+    "target": "es2020",
+    "verbatimModuleSyntax": true,
 
     "outDir": "lib",
     "sourceMap": true,
     "declaration": true,
+    "declarationMap": true,
 
     "newLine": "LF",
     "forceConsistentCasingInFileNames": true,

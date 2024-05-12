@@ -1,10 +1,11 @@
-import * as parse from "rehype-parse";
-import * as unified from "unified";
-import { Processor } from "unified";
-import { Parent } from "unist";
-import * as vFile from "vfile";
-import { SvgCache } from "./cache";
-import { GroupedImageNodes, isSvgNode, SvgNode } from "./image-node";
+import parse from "rehype-parse";
+import { unified } from "unified";
+import type { Processor } from "unified";
+import type { Node, Parent } from "unist";
+import { VFile } from "vfile";
+import { SvgCache } from "./cache.js";
+import { isSvgNode } from "./image-node.js";
+import type { GroupedImageNodes, SvgNode } from "./image-node.js";
 
 /**
  * Converts the given `<img>` nodes to `<svg>` nodes
@@ -36,9 +37,9 @@ export function imgToSVG(groupedNodes: GroupedImageNodes, svgCache: SvgCache): v
 /**
  * Parses the specified SVG image to a HAST tree
  */
-function parseSVG(filePath: string, svgCache: SvgCache, processor: Processor): SvgNode {
-  let file = vFile({
-    contents: svgCache.get(filePath),
+function parseSVG(filePath: string, svgCache: SvgCache, processor: Processor<Node>): SvgNode {
+  let file = new VFile({
+    value: svgCache.get(filePath),
     path: filePath,
   });
 

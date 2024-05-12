@@ -24,6 +24,7 @@
     "type": "git",
     "url": "https://github.com/JS-DevTools/rehype-inline-svg.git"
   },
+  "type": "module",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
@@ -41,7 +42,7 @@
     "release": "npm run upgrade && npm run clean && npm run build && npm test && npm run bump"
   },
   "engines": {
-    "node": ">=10"
+    "node": "^12.20.0 || >=14.13.1"
   },
   "devDependencies": {
     "@jsdevtools/eslint-config": "^1.1.4",
