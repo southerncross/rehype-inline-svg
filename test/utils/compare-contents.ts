@@ -1,9 +1,5 @@
-"use strict";
-
-const { readFile } = require("../../lib/read-file");
-const { expect } = require("chai");
-
-module.exports = compareContents;
+import { readFile } from "../../lib/read-file";
+import { expect } from "chai";
 
 /**
  * Compares the given file contents to the expected contents.
@@ -35,3 +31,5 @@ async function compareContents (actualContents, fileName) {
     }
   }
 }
+
+export default compareContents;
