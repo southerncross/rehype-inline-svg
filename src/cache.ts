@@ -1,6 +1,7 @@
-import * as SVGO from "svgo";
-import { GroupedImageNodes, ImageNodeGroup } from "./image-node";
-import { readFile } from "./read-file";
+import { optimize as optimizeSvg } from "svgo";
+import type { Config as SvgoConfig } from "svgo";
+import type { GroupedImageNodes, ImageNodeGroup } from "./image-node.js";
+import { readFile } from "./read-file.js";
 
 /**
  * A cache of the contents of of SVG files. This saves us from reading the same files
@@ -23,12 +24,9 @@ export class SvgCache extends Map<string, string> {
    * Reads the contents of any SVG files that aren't already in the cache,
    * and adds them to the cache.
    */
-  public async read(groupedNodes: GroupedImageNodes, optimize: boolean | SVGO.Options): Promise<void> {
-    // Create an SVG Optimizer, if necessary
-    let svgo = optimize && new SVGO(optimize === true ? undefined : optimize);
-
+  public async read(groupedNodes: GroupedImageNodes, optimize: boolean | SvgoConfig): Promise<void> {
     // Queue-up any files that aren't already in the cache
-    let promises = [...groupedNodes].map((group) => this._readFile(group, svgo));
+    let promises = [...groupedNodes].map((group) => this._readFile(group, optimize));
     let queued = this._queue.push(...promises);
 
     // Wait for all queued files to be read
@@ -41,7 +39,7 @@ export class SvgCache extends Map<string, string> {
   /**
    * Reads the specified SVG file and returns its contents
    */
-  private async _readFile(group: ImageNodeGroup, optimizer: SVGO | false): Promise<void> {
+  private async _readFile(group: ImageNodeGroup, optimize: boolean | SvgoConfig): Promise<void> {
     let [path, nodes] = group;
 
     if (this.has(path)) {
@@ -59,8 +57,9 @@ export class SvgCache extends Map<string, string> {
     let content = await readFile(path, "utf8");
 
     // Optimize the contents, if enabled
-    if (optimizer) {
-      let optimized = await optimizer.optimize(content, { path });
+    if (optimize) {
+      const optimizeConfig = typeof optimize === "boolean" ? {} : optimize;
+      let optimized = await optimizeSvg(content, { path, ...optimizeConfig });
       content = optimized.data;
     }
 
