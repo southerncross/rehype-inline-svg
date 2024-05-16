@@ -1,6 +1,6 @@
 {
   "name": "@lishunyang/rehype-inline-svg",
-  "version": "1.1.4",
+  "version": "2.0.0-beta.1",
   "description": "A rehype plugin that inlines and optimizes SVG images",
   "keywords": [
     "unified",
@@ -35,11 +35,11 @@
     "lint": "eslint src test",
     "build": "tsc",
     "watch": "tsc --watch",
-    "test": "mocha && pnpm lint",
+    "test": "mocha",
     "coverage": "nyc node_modules/mocha/bin/mocha",
     "upgrade": "NPM_CHECK_INSTALLER=pnpm npm-check -u",
     "bump": "bump --tag --push --all",
-    "release": "pnpm upgrade && pnpm clean && pnpm build && pnpm test && pnpm bump"
+    "release": "pnpm run upgrade && pnpm run clean && pnpm run build && pnpm run test && pnpm run bump"
   },
   "engines": {
     "node": "^12.20.0 || >=14.13.1"
