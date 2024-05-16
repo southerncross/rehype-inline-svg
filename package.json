@@ -35,11 +35,11 @@
     "lint": "eslint src test",
     "build": "tsc",
     "watch": "tsc --watch",
-    "test": "mocha && npm run lint",
+    "test": "mocha && pnpm lint",
     "coverage": "nyc node_modules/mocha/bin/mocha",
     "upgrade": "NPM_CHECK_INSTALLER=pnpm npm-check -u",
     "bump": "bump --tag --push --all",
-    "release": "npm run upgrade && npm run clean && npm run build && npm test && npm run bump"
+    "release": "pnpm upgrade && pnpm clean && pnpm build && pnpm test && pnpm bump"
   },
   "engines": {
     "node": "^12.20.0 || >=14.13.1"
