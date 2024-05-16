@@ -1,14 +1,15 @@
-import { readFile } from "../../lib/read-file";
 import { expect } from "chai";
+import type { Value } from 'vfile';
+import { readFile } from "../../lib/read-file.js";
 
 /**
  * Compares the given file contents to the expected contents.
  */
-async function compareContents (actualContents, fileName) {
+async function compareContents (actualContents: Value, fileName: string) {
   let expectedContents = await readFile(`test/fixtures/modified/${fileName}`, "utf8");
 
   // Split both files into separate lines
-  let actualLines = actualContents.split("\n").filter(Boolean);
+  let actualLines = String(actualContents).split("\n").filter(Boolean);
   let expectedLines = expectedContents.split("\n").filter(Boolean);
 
   let lineCount = Math.max(actualLines.length, expectedLines.length);

@@ -1,4 +1,4 @@
-import defaultExport, { inlineSVG as namedExport } from "../../";
+import defaultExport, { inlineSVG as namedExport } from "../../src/index.js";
 import { expect } from "chai";
 
 describe("rehype-inline-svg package exports", () => {

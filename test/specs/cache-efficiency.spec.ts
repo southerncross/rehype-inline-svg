@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import processFiles from "../utils/process-file.js";
 import compareContents from "../utils/compare-contents.js";
-import { CacheEfficiency } from "../../src/options.js";
+import type { CacheEfficiency } from "../../src/options.js";
 
 describe("options.cacheEfficiency", () => {
   let efficiencyData: CacheEfficiency[] = [];

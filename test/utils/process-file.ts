@@ -4,8 +4,10 @@ import parse from "rehype-parse";
 import stringify from "rehype-stringify";
 import { read, write } from "to-vfile";
 import { VFile } from "vfile";
+import type { Node } from 'unist';
+import type { Processor, CompileResults } from 'unified';
 
-import inlineSVG from "../../src/index";
+import inlineSVG from "../../src/index.js";
 
 before("Create the .tmp directory", () => {
   if (!fs.existsSync("test/fixtures/.tmp")) {
@@ -16,7 +18,13 @@ before("Create the .tmp directory", () => {
 /**
  * Processes the specified HTML file using the given Rehype instance
  */
-async function processFile(fileName, processor) {
+async function processFile<
+  A extends Node | undefined,
+  B extends Node | undefined,
+  C extends Node | undefined,
+  D extends Node | undefined,
+  E extends CompileResults | undefined
+>(fileName: string, processor: Processor<A, B, C, D, E>) {
   let file = await read(`test/fixtures/originals/${fileName}`);
   file = await processor.process(file);
 
