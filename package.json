@@ -15,14 +15,14 @@
     "html"
   ],
   "author": {
-    "name": "James Messinger",
-    "url": "https://jamesmessinger.com"
+    "name": "Shunyang Li",
+    "url": "https://github.com/southerncross"
   },
   "license": "MIT",
-  "homepage": "https://jstools.dev/rehype-inline-svg",
+  "homepage": "https://github.com/southerncross/rehype-inline-svg",
   "repository": {
     "type": "git",
-    "url": "https://github.com/JS-DevTools/rehype-inline-svg.git"
+    "url": "https://github.com/southerncross/rehype-inline-svg.git"
   },
   "type": "module",
   "main": "lib/index.js",
